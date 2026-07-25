@@ -1,0 +1,45 @@
+realtime_asr/
+│
+├── README.md                    # What the project does and how to run it
+├── requirements.txt             # Dependencies — pinned versions
+├── .env.example                 # Environment variables template
+├── setup.py                     # Makes the project installable as a package
+│
+├── config/
+│   └── settings.py              # Central configuration — ALL tunable values live here
+│
+├── audio/
+│   ├── __init__.py
+│   ├── capture.py               # Captures audio from microphone or file
+│   └── resampler.py             # Converts sample rates (e.g., 48kHz → 16kHz)
+│
+├── vad/
+│   ├── __init__.py
+│   ├── engine.py                # VAD logic — is there speech in this chunk?
+│   └── state_machine.py         # Tracks speech/silence STATE over time (hysteresis)
+│
+├── asr/
+│   ├── __init__.py
+│   ├── engine.py                # Sends audio to Whisper (or any STT model)
+│   └── buffer.py                # Accumulates speech chunks before sending to ASR
+│
+├── pipeline/
+│   ├── __init__.py
+│   ├── coordinator.py           # Connects all modules together — the orchestrator
+│   └── queue_manager.py         # Manages the queues between stages
+│
+├── utils/
+│   ├── __init__.py
+│   ├── logging_config.py        # Structured logging setup
+│   └── audio_utils.py           # Audio math helpers (RMS, normalization, etc.)
+│
+├── tests/
+│   ├── conftest.py              # Shared test fixtures
+│   ├── test_audio_capture.py
+│   ├── test_vad_engine.py
+│   ├── test_vad_state_machine.py
+│   ├── test_asr_buffer.py
+│   ├── test_asr_engine.py
+│   └── test_pipeline.py
+│
+└── main.py                      # Entry point — starts the whole system
